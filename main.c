@@ -18,23 +18,21 @@ struct tm* aTm;
 HANDLE  hConsole;
 FILE *fl;
 int main() {
-    char servak[16];
-    char vibor[3];
-    printf("Your name?\n");
-    gets(zapiska);
-    if ((fl = fopen("servak.txt", "r")) != NULL) {
-        if ((fgets(servak, 16, fl)) != NULL) {
-            // puts(servak);
-            printf("connected to: %s yes or no\n", servak);
+   const char servak[16];
+    BOOL vibor=FALSE;
+    if((fl=fopen("servak.txt","r"))!=NULL) {
+        if ((fgets(servak, 16, fl))!=NULL) {
+            printf("connected to: %s press 1 or 0\n", servak);
         }
     }
-    scanf("%s", vibor);
-    if ((0 == strncmp(vibor, "no", 2)) || fl == NULL) {
+    if (servak[0]!='\0')
+        scanf("%d", &vibor);
+    if (!vibor||fl==NULL){
         fl = fopen("servak.txt", "w");
         ZeroMemory (servak, sizeof(servak));
         puts("IP:");
-        scanf("%s", servak);
-        fputs(servak, fl);
+        scanf("%s",servak);
+        fputs(servak,fl);
     }
     fclose(fl);
     SetConsoleCP(1251);
